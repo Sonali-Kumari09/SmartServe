@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — Smart Meal System</title>
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__brand"><span class="ticket-dot"></span> Smart Meal System · Admin</div>
+  <div class="topbar__actions">
+    <span class="topbar__meta">Signed in as <strong id="adminName">—</strong></span>
+    <button class="btn btn--ghost btn--sm" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+<nav class="admin-nav">
+  <a href="dashboard.html" class="is-active">Overview</a>
+  <a href="inventory.html">Inventory</a>
+  <a href="surplus.html">Surplus &amp; Matching</a>
+  <a href="reports.html">Reports</a>
+</nav>
+
+<main class="page">
+  <div id="holidayBanner" data-icon-path="../assets/icons/holiday.svg" hidden></div>
+
+  <div class="grid grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <span class="card__eyebrow">Meal timing — live</span>
+      <div class="meal-clock"><div id="mealClock"></div></div>
+    </div>
+    <div class="card">
+      <span class="card__eyebrow">Weather · Patna, Bihar</span>
+      <div id="weatherWidget" class="weather-widget"></div>
+    </div>
+  </div>
+
+  <h2 style="font-size:1.05rem;">Today's demand forecast</h2>
+  <div class="grid grid-3" id="forecastCards" style="margin-bottom:24px;"></div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <span class="card__eyebrow">Quick stats</span>
+      <div class="grid grid-3" id="quickStats" style="gap:12px;"></div>
+    </div>
+    <div class="card">
+      <span class="card__eyebrow">Upcoming holidays</span>
+      <ul id="upcomingHolidays" style="margin:0;padding-left:18px;font-size:0.88rem;line-height:1.9;"></ul>
+    </div>
+  </div>
+</main>
+
+<script src="../js/data/storage.js"></script>
+<script src="../js/utils/dateUtils.js"></script>
+<script src="../js/data/holidayData.js"></script>
+<script src="../js/data/seedData.js"></script>
+<script src="../js/core/mealTimer.js"></script>
+<script src="../js/core/weather.js"></script>
+<script src="../js/core/forecast.js"></script>
+<script src="../js/core/holiday.js"></script>
+<script src="../js/auth/auth.js"></script>
+<script src="../js/utils/notify.js"></script>
+<script src="../js/pages/adminDashboard.js"></script>
+</body>
+</html>

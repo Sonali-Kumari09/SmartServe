@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reports — Smart Meal System</title>
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__brand"><span class="ticket-dot"></span> Smart Meal System · Admin</div>
+  <div class="topbar__actions">
+    <span class="topbar__meta">Signed in as <strong id="adminName">—</strong></span>
+    <button class="btn btn--ghost btn--sm" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+<nav class="admin-nav">
+  <a href="dashboard.html">Overview</a>
+  <a href="inventory.html">Inventory</a>
+  <a href="surplus.html">Surplus &amp; Matching</a>
+  <a href="reports.html" class="is-active">Reports</a>
+</nav>
+
+<main class="page">
+  <h1 style="font-size:1.3rem;">Food, cost &amp; carbon savings</h1>
+  <p style="color:var(--steel-600);margin-bottom:20px;">Cumulative totals from confirmed donations, plus the kitchen's waste trend.</p>
+
+  <div class="report-stats" id="reportStats"></div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <span class="card__eyebrow">Waste, last 7 days</span>
+      <div id="wasteChart"></div>
+    </div>
+    <div class="card">
+      <span class="card__eyebrow">Donation log</span>
+      <table class="data-table">
+        <thead><tr><th>Date</th><th>Item</th><th>Qty</th><th>Shelter(s)</th></tr></thead>
+        <tbody id="donationLog"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script src="../js/data/storage.js"></script>
+<script src="../js/utils/dateUtils.js"></script>
+<script src="../js/data/holidayData.js"></script>
+<script src="../js/data/seedData.js"></script>
+<script src="../js/auth/auth.js"></script>
+<script src="../js/utils/notify.js"></script>
+<script src="../js/pages/reports.js"></script>
+</body>
+</html>
