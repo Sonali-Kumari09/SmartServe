@@ -1,54 +1,13 @@
-.split {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+.board {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 28px 60px;
 }
-@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
 
-.split__board {
-  background: var(--ink-900);
-  color: var(--paper-0);
-  padding: 40px 44px;
-  position: relative;
-  overflow: hidden;
+.board__eyebrow {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--turmeric-dark);
 }
-.split__board::after {
-  content: '';
-  position: absolute; inset: auto -20% -40% auto;
-  width: 480px; height: 480px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(227,160,8,0.16), transparent 70%);
-}
-.split__eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--turmeric); }
-.split__heading { font-size: clamp(2rem, 4vw, 2.9rem); margin: 6px 0 26px; max-width: 12ch; }
-.split__board .card { background: rgba(250,247,236,0.05); border-color: var(--line-on-dark); color: var(--paper-0); backdrop-filter: blur(2px); }
-.split__board .cal-cell { background: rgba(250,247,236,0.08); color: var(--paper-0); }
-.split__board .card__eyebrow { color: rgba(250,247,236,0.55); }
-.split__board .calendar { background: rgba(250,247,236,0.04); border-color: var(--line-on-dark); }
-.split__board .cal-title, .split__board .cal-nav { color: var(--paper-0); border-color: var(--line-on-dark); }
-
-.split__panel {
-  background: var(--paper-0);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 44px;
-  border-left: 1px solid var(--line);
-}
-.split__panel-inner { max-width: 380px; margin: 0 auto; width: 100%; }
-.split__logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-.split__logo .ticket-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--turmeric); }
-.split__panel h2 { font-size: 1.5rem; margin-bottom: 6px; }
-.split__panel > p { color: var(--steel-600); margin-bottom: 26px; }
-.role-picker { display: flex; flex-direction: column; gap: 12px; }
-.role-card {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
-  text-decoration: none; color: var(--ink-900); transition: border-color 0.15s, transform 0.12s;
-}
-.role-card:hover { border-color: var(--turmeric); transform: translateX(2px); }
-.role-card__title { font-family: var(--font-display); text-transform: uppercase; font-size: 1rem; }
-.role-card__desc { font-size: 0.82rem; color: var(--steel-600); margin: 2px 0 0; }
-.role-card__arrow { font-size: 1.3rem; color: var(--turmeric); }
+.board__heading { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 6px 0 26px; }
 
 .today-menu-list { display: grid; gap: 10px; }
-.today-menu-list .meal-card { background: rgba(250,247,236,0.06); border-color: var(--line-on-dark); color: var(--paper-0); }
-.today-menu-list .meal-card--open { background: rgba(63,125,79,0.22); border-color: var(--veg); }
-.today-menu-list .meal-card__window { color: rgba(250,247,236,0.6); }

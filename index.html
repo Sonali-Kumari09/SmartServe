@@ -9,62 +9,40 @@
 </head>
 <body>
 
-<div class="split">
-  <section class="split__board">
-    <span class="split__eyebrow">Mess Hall · Live Board</span>
-    <h1 class="split__heading">What's on today</h1>
+<header class="topbar">
+  <div class="topbar__brand"><span class="ticket-dot"></span> Smart Meal System</div>
+  <div class="topbar__actions">
+    <a class="btn btn--primary btn--sm" href="login.html">Log in</a>
+  </div>
+</header>
 
-    <div id="holidayBanner" data-icon-path="assets/icons/holiday.svg" hidden></div>
+<main class="board">
+  <span class="board__eyebrow">Mess Hall · Live Board</span>
+  <h1 class="board__heading">What's on today</h1>
 
-    <div class="grid" style="gap:16px;">
-      <div class="card">
-        <span class="card__eyebrow" id="todayLabel">—</span>
-        <div class="meal-clock">
-          <div id="mealClock"></div>
-          <div class="meal-clock__legend">
-            <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#3F7D4F"></span>Open now</div>
-            <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#E3A008"></span>Upcoming</div>
-            <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#5B6D63"></span>Closed</div>
-          </div>
+  <div id="holidayBanner" data-icon-path="assets/icons/holiday.svg" hidden></div>
+
+  <div class="grid" style="gap:16px;">
+    <div class="card">
+      <span class="card__eyebrow" id="todayLabel">—</span>
+      <div class="meal-clock">
+        <div id="mealClock"></div>
+        <div class="meal-clock__legend">
+          <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#3F7D4F"></span>Open now</div>
+          <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#E3A008"></span>Upcoming</div>
+          <div class="meal-clock__row"><span class="meal-clock__swatch" style="background:#5B6D63"></span>Closed</div>
         </div>
       </div>
-
-      <div id="todayMenuList" class="today-menu-list"></div>
-
-      <div class="card">
-        <span class="card__eyebrow">This month</span>
-        <div id="miniCalendar"></div>
-      </div>
     </div>
-  </section>
 
-  <section class="split__panel">
-    <div class="split__panel-inner">
-      <div class="split__logo">
-        <span class="ticket-dot"></span>
-        <span class="display" style="font-size:1.05rem;">Smart Meal System</span>
-      </div>
-      <h2>Get access</h2>
-      <p>Students check the menu and timings. Staff manage forecasting, storage safety and surplus donation.</p>
-      <div class="role-picker">
-        <a class="role-card" href="login.html?role=student">
-          <div>
-            <div class="role-card__title">Student</div>
-            <p class="role-card__desc">Menu, calendar &amp; meal timing</p>
-          </div>
-          <span class="role-card__arrow">→</span>
-        </a>
-        <a class="role-card" href="login.html?role=admin">
-          <div>
-            <div class="role-card__title">Mess Admin</div>
-            <p class="role-card__desc">Forecast, inventory, surplus &amp; reports</p>
-          </div>
-          <span class="role-card__arrow">→</span>
-        </a>
-      </div>
+    <div id="todayMenuList" class="today-menu-list"></div>
+
+    <div class="card">
+      <span class="card__eyebrow">This month</span>
+      <div id="miniCalendar"></div>
     </div>
-  </section>
-</div>
+  </div>
+</main>
 
 <script src="js/data/storage.js"></script>
 <script src="js/utils/dateUtils.js"></script>

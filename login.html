@@ -6,11 +6,23 @@
 <title>Sign in — Smart Meal System</title>
 <link rel="stylesheet" href="css/base.css" />
 <style>
-  body { background: var(--ink-900); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  body { background: var(--ink-900); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
   .login-box { width: 100%; max-width: 380px; background: var(--paper-0); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-card); }
-  .role-tabs { display: flex; gap: 8px; margin-bottom: 22px; background: var(--paper-100); padding: 4px; border-radius: 8px; }
-  .role-tabs button { flex: 1; padding: 8px; border: none; background: transparent; border-radius: 6px; font-weight: 600; font-size: 0.85rem; }
-  .role-tabs button.is-active { background: var(--ink-900); color: var(--paper-0); }
+
+  .mode-tabs { display: flex; gap: 8px; margin-bottom: 20px; background: var(--paper-100); padding: 4px; border-radius: 8px; }
+  .mode-tabs button { flex: 1; padding: 8px; border: none; background: transparent; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+  .mode-tabs button.is-active { background: var(--ink-900); color: var(--paper-0); }
+
+  .role-tabs { display: flex; gap: 8px; margin-bottom: 22px; }
+  .role-tabs button {
+    flex: 1; padding: 8px; border: 1px solid var(--line); background: #fff; border-radius: var(--radius-sm);
+    font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--ink-900);
+  }
+  .role-tabs button.is-active { background: var(--turmeric); border-color: var(--turmeric); color: var(--ink-900); }
+
+  .auth-panel { display: none; }
+  .auth-panel.is-active { display: block; }
+
   .login-hint { font-family: var(--font-mono); font-size: 0.76rem; color: var(--steel-600); margin-top: 14px; text-align: center; }
   .back-link { display: block; text-align: center; margin-top: 16px; font-size: 0.85rem; color: var(--steel-600); text-decoration: none; }
 </style>
@@ -18,29 +30,62 @@
 <body>
 
 <div class="login-box">
-  <div class="split__logo" style="margin-bottom:18px;">
+  <div class="split__logo" style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
     <span class="ticket-dot"></span>
     <span class="display" style="font-size:1rem;">Smart Meal System</span>
   </div>
 
-  <div class="role-tabs">
-    <button type="button" data-role="student">Student</button>
-    <button type="button" data-role="admin">Mess Admin</button>
+  <div class="mode-tabs">
+    <button type="button" data-mode="login" class="is-active">Log in</button>
+    <button type="button" data-mode="register">Create account</button>
   </div>
 
-  <form id="loginForm">
-    <div class="field">
-      <label for="username">Username</label>
-      <input id="username" name="username" required autocomplete="username" />
+  <!-- LOG IN -->
+  <div class="auth-panel is-active" id="panel-login">
+    <div class="role-tabs">
+      <button type="button" data-role="student">Student</button>
+      <button type="button" data-role="admin">Mess Admin</button>
     </div>
-    <div class="field">
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required autocomplete="current-password" />
-    </div>
-    <button class="btn btn--primary" style="width:100%;" type="submit">Sign in</button>
-  </form>
 
-  <p class="login-hint" id="demoHint">Demo — student / student123</p>
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" required autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required autocomplete="current-password" />
+      </div>
+      <button class="btn btn--primary" style="width:100%;" type="submit">Sign in</button>
+    </form>
+    <p class="login-hint" id="demoHint">Demo — student / student123</p>
+  </div>
+
+  <!-- CREATE ACCOUNT -->
+  <div class="auth-panel" id="panel-register">
+    <div class="role-tabs">
+      <button type="button" data-role="student">Student</button>
+      <button type="button" data-role="admin">Mess Admin</button>
+    </div>
+
+    <form id="registerForm">
+      <div class="field">
+        <label for="regName">Full name</label>
+        <input id="regName" name="name" required autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="regUsername">Username</label>
+        <input id="regUsername" name="username" required autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="regPassword">Password</label>
+        <input id="regPassword" name="password" type="password" required autocomplete="new-password" minlength="6" />
+      </div>
+      <button class="btn btn--primary" style="width:100%;" type="submit">Create account</button>
+    </form>
+    <p class="login-hint">Choose the role above — it can't be changed later.</p>
+  </div>
+
   <a class="back-link" href="index.html">← Back to today's board</a>
 </div>
 
@@ -53,28 +98,71 @@
 <script>
   SeedData.seedDatabase();
 
-  let role = new URLSearchParams(location.search).get('role') === 'admin' ? 'admin' : 'student';
+  const initialRole = new URLSearchParams(location.search).get('role') === 'admin' ? 'admin' : 'student';
+  let loginRole = initialRole;
+  let registerRole = initialRole;
 
-  function setRole(r) {
-    role = r;
-    document.querySelectorAll('.role-tabs button').forEach(b => b.classList.toggle('is-active', b.dataset.role === r));
-    document.getElementById('demoHint').textContent = r === 'admin' ? 'Demo — admin / admin123' : 'Demo — student / student123';
+  function goToDashboard(role) {
+    window.location.href = role === 'admin' ? 'admin/dashboard.html' : 'student/dashboard.html';
   }
-  document.querySelectorAll('.role-tabs button').forEach(b => b.addEventListener('click', () => setRole(b.dataset.role)));
-  setRole(role);
 
+  // ---- mode tabs (Log in / Create account) ----
+  function setMode(mode) {
+    document.querySelectorAll('.mode-tabs button').forEach(b => b.classList.toggle('is-active', b.dataset.mode === mode));
+    document.getElementById('panel-login').classList.toggle('is-active', mode === 'login');
+    document.getElementById('panel-register').classList.toggle('is-active', mode === 'register');
+  }
+  document.querySelectorAll('.mode-tabs button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+
+  // ---- role tabs, scoped per panel ----
+  function wireRoleTabs(panelEl, getSet) {
+    const buttons = panelEl.querySelectorAll('.role-tabs button');
+    function apply(role) {
+      buttons.forEach(b => b.classList.toggle('is-active', b.dataset.role === role));
+    }
+    buttons.forEach(b => b.addEventListener('click', () => { getSet.set(b.dataset.role); apply(b.dataset.role); }));
+    apply(getSet.get());
+    return apply;
+  }
+
+  const applyLoginRoleUI = wireRoleTabs(document.getElementById('panel-login'), {
+    get: () => loginRole,
+    set: (r) => {
+      loginRole = r;
+      document.getElementById('demoHint').textContent = r === 'admin' ? 'Demo — admin / admin123' : 'Demo — student / student123';
+    }
+  });
+  document.getElementById('demoHint').textContent = loginRole === 'admin' ? 'Demo — admin / admin123' : 'Demo — student / student123';
+
+  wireRoleTabs(document.getElementById('panel-register'), {
+    get: () => registerRole,
+    set: (r) => { registerRole = r; }
+  });
+
+  setMode(new URLSearchParams(location.search).get('mode') === 'register' ? 'register' : 'login');
+
+  // ---- log in ----
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
-    const result = Auth.login(username, password);
+    // The expected role is passed straight into Auth.login, so an account can only ever
+    // sign in through the portal matching its own stored role.
+    const result = Auth.login(username, password, loginRole);
     if (!result.ok) { Notify.toast(result.error, 'error'); return; }
-    if (result.session.role !== role) {
-      Notify.toast(`That account is a ${result.session.role} account — switch tabs above.`, 'error');
-      Auth.logout();
-      return;
-    }
-    window.location.href = role === 'admin' ? 'admin/dashboard.html' : 'student/dashboard.html';
+    goToDashboard(result.session.role);
+  });
+
+  // ---- create account ----
+  document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const result = Auth.register({ name, username, password, role: registerRole });
+    if (!result.ok) { Notify.toast(result.error, 'error'); return; }
+    Notify.toast('Account created!', 'success');
+    goToDashboard(result.session.role);
   });
 </script>
 </body>
