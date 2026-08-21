@@ -1,0 +1,8 @@
+// File: backend/controllers/authController.js
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+function createToken(user) { return jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }); }
+async function register(req, res, next) { try { const { name, email, password, role } = req.body; if (!name || !email || !password) return res.status(400).json({ message: 'Name, email, and password are required.' }); if (password.length < 6) return res.status(400).json({ message: 'Password must be at least 6 characters.' }); if (await User.findByEmail(email)) return res.status(409).json({ message: 'An account with that email already exists.' }); const allowed = ['student', 'admin', 'ngo']; const selectedRole = process.env.ALLOW_PRIVILEGED_REGISTRATION === 'true' && allowed.includes(role) ? role : 'student'; const user = await User.createUser({ name, email, password, role: selectedRole }); res.status(201).json({ token: createToken(user), user }); } catch (error) { next(error); } }
+async function login(req, res, next) { try { const { email, password } = req.body; const user = await User.findByEmail(email || '', true); if (!user || !(await User.comparePassword(password || '', user.password))) return res.status(401).json({ message: 'Invalid email or password.' }); const publicUser = { id: user.id, name: user.name, email: user.email, role: user.role, createdAt: user.created_at }; res.json({ token: createToken(publicUser), user: publicUser }); } catch (error) { next(error); } }
+function me(req, res) { res.json({ user: req.user }); }
+module.exports = { register, login, me };

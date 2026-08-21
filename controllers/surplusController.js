@@ -1,0 +1,12 @@
+// File: backend/controllers/surplusController.js
+const { query } = require('../config/database');
+const InventoryLog = require('../models/InventoryLog');
+const SurplusBatch = require('../models/SurplusBatch');
+const Recipient = require('../models/Recipient');
+async function listSurplus(req, res, next) { try { res.json({ batches: await SurplusBatch.list(req.query.status) }); } catch (error) { next(error); } }
+async function createSurplus(req, res, next) { try { const inventory = await InventoryLog.findById(req.body.inventoryRef); if (!inventory) return res.status(404).json({ message: 'Source inventory item not found.' }); if (inventory.status === 'Spoiled/Unsafe') return res.status(400).json({ message: 'Unsafe inventory cannot be redistributed.' }); const quantityKg = Number(req.body.quantityKg || inventory.quantityKg); const batch = await SurplusBatch.create({ inventoryRef: inventory.id, foodItem: inventory.foodItem, quantityKg, safeUntil: new Date(new Date(inventory.timePrepared).getTime() + 4 * 60 * 60 * 1000) }); await query("UPDATE inventory_logs SET status = 'Redistributed', last_updated = NOW() WHERE id = $1", [inventory.id]); res.status(201).json({ batch }); } catch (error) { next(error); } }
+async function matchSurplus(req, res, next) { try { const recipient = await Recipient.findById(req.body.recipientId); if (!recipient || !recipient.isActive) return res.status(404).json({ message: 'Active recipient not found.' }); const batch = await SurplusBatch.match(req.params.id, recipient.id); if (!batch) return res.status(400).json({ message: 'Surplus batch not found or is not pending.' }); res.json({ batch }); } catch (error) { next(error); } }
+async function updateSurplusStatus(req, res, next) { try { const allowed = ['Pending', 'Matched', 'Delivered', 'Expired']; if (!allowed.includes(req.body.status)) return res.status(400).json({ message: 'Invalid surplus status.' }); const batch = await SurplusBatch.updateStatus(req.params.id, req.body.status); if (!batch) return res.status(404).json({ message: 'Surplus batch not found.' }); res.json({ batch }); } catch (error) { next(error); } }
+async function listRecipients(req, res, next) { try { res.json({ recipients: await Recipient.listActive() }); } catch (error) { next(error); } }
+async function createRecipient(req, res, next) { try { res.status(201).json({ recipient: await Recipient.createRecipient(req.body) }); } catch (error) { next(error); } }
+module.exports = { listSurplus, createSurplus, matchSurplus, updateSurplusStatus, listRecipients, createRecipient };

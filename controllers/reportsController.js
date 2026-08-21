@@ -1,0 +1,4 @@
+// File: backend/controllers/reportsController.js
+const { query } = require('../config/database');
+async function summary(req, res, next) { try { const [inventory, surplus, menus, totals] = await Promise.all([query('SELECT status AS _id, COUNT(*)::int AS count, COALESCE(SUM(quantity_kg), 0)::float AS "quantityKg" FROM inventory_logs GROUP BY status'), query('SELECT status AS _id, COUNT(*)::int AS count, COALESCE(SUM(quantity_kg), 0)::float AS "quantityKg" FROM surplus_batches GROUP BY status'), query('SELECT COUNT(*)::int AS count FROM menus'), query("SELECT COALESCE(SUM(quantity_kg), 0)::float AS \"totalKg\", COALESCE(SUM(quantity_kg) FILTER (WHERE status = 'Delivered'), 0)::float AS \"deliveredKg\" FROM surplus_batches")]); res.json({ inventoryByStatus: inventory.rows, surplusByStatus: surplus.rows, menuCount: menus.rows[0].count, totals: totals.rows[0] }); } catch (error) { next(error); } }
+module.exports = { summary };
