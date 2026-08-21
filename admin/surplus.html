@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surplus &amp; Matching — Smart Meal System</title>
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__brand"><span class="ticket-dot"></span> Smart Meal System · Admin</div>
+  <div class="topbar__actions">
+    <span class="topbar__meta">Signed in as <strong id="adminName">—</strong></span>
+    <button class="btn btn--ghost btn--sm" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+<nav class="admin-nav">
+  <a href="dashboard.html">Overview</a>
+  <a href="inventory.html">Inventory</a>
+  <a href="surplus.html" class="is-active">Surplus &amp; Matching</a>
+  <a href="reports.html">Reports</a>
+</nav>
+
+<main class="page">
+  <h1 style="font-size:1.3rem;">Surplus detection &amp; shelter matching</h1>
+  <p style="color:var(--steel-600);margin-bottom:20px;">Verify each item is still safe, then match it to the nearest eligible shelter. Expired items are locked out of matching and donation.</p>
+
+  <div id="surplusList"></div>
+</main>
+
+<script src="../js/data/storage.js"></script>
+<script src="../js/utils/dateUtils.js"></script>
+<script src="../js/data/holidayData.js"></script>
+<script src="../js/data/seedData.js"></script>
+<script src="../js/core/safety.js"></script>
+<script src="../js/core/matching.js"></script>
+<script src="../js/auth/auth.js"></script>
+<script src="../js/utils/notify.js"></script>
+<script src="../js/pages/surplus.js"></script>
+</body>
+</html>
