@@ -1,0 +1,67 @@
+.admin-nav { display: flex; gap: 6px; padding: 0 28px; background: var(--ink-800); overflow-x: auto; }
+.admin-nav a {
+  display: inline-block; padding: 11px 16px; color: rgba(250,247,236,0.65);
+  text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.03em;
+  border-bottom: 3px solid transparent; white-space: nowrap;
+}
+.admin-nav a:hover { color: var(--paper-0); }
+.admin-nav a.is-active { color: var(--paper-0); border-bottom-color: var(--turmeric); }
+
+.forecast-card__head { display: flex; justify-content: space-between; align-items: flex-start; }
+.forecast-card__meal { font-family: var(--font-display); text-transform: uppercase; }
+.forecast-card__attendance { font-family: var(--font-display); font-size: 2.1rem; margin: 8px 0 0; }
+.forecast-card__attendance span { font-size: 0.9rem; font-family: var(--font-mono); color: var(--steel-600); text-transform: none; }
+.forecast-card__qty { font-family: var(--font-mono); font-size: 0.85rem; margin-top: 4px; color: var(--veg); }
+.forecast-card__factors { margin: 10px 0 0; padding-left: 16px; font-size: 0.78rem; color: var(--steel-600); }
+.forecast-card__factors li { margin-bottom: 2px; }
+
+.weather-widget { display: flex; align-items: center; gap: 14px; }
+.weather-widget__temp { font-family: var(--font-display); font-size: 2.2rem; }
+.weather-widget__cond { font-size: 0.9rem; color: var(--steel-600); }
+.weather-widget__meta { font-family: var(--font-mono); font-size: 0.76rem; color: var(--steel-600); margin-top: 4px; }
+
+.inv-form-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: end; }
+@media (max-width: 900px) { .inv-form-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .inv-form-grid { grid-template-columns: 1fr; } .inv-form-grid .btn { grid-column: 1 !important; } }
+
+.qty-cell { font-family: var(--font-mono); }
+.safety-remaining { font-family: var(--font-mono); font-size: 0.8rem; }
+
+.surplus-row__actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.allocation-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.allocation-list li { display: flex; justify-content: space-between; background: var(--paper-100); padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; }
+.allocation-list li span:last-child { font-family: var(--font-mono); }
+
+.report-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+@media (max-width: 760px) { .report-stats { grid-template-columns: 1fr; } }
+.report-stat { border-top: 4px solid var(--turmeric); }
+.report-stat--veg { border-top-color: var(--veg); }
+.report-stat--steel { border-top-color: var(--steel-blue); }
+
+.bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 160px; padding-top: 10px; }
+.bar-chart__col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; height: 100%; }
+.bar-chart__bar { width: 100%; max-width: 26px; background: var(--turmeric); border-radius: 4px 4px 0 0; min-height: 2px; }
+.bar-chart__label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--steel-600); }
+
+/* Admin day menu + configured menu list */
+.admin-day-menu .day-menu__meal { margin-bottom: 14px; }
+.admin-day-menu .day-menu__meal:last-child { margin-bottom: 0; }
+.admin-day-menu .day-menu__meal h4 {
+  font-family: var(--font-display); text-transform: uppercase; font-size: 0.85rem;
+  margin: 0 0 4px; color: var(--steel-600); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.admin-day-menu .day-menu__meal ul { margin: 0; padding-left: 18px; font-size: 0.92rem; }
+
+.menu-list { display: grid; gap: 10px; max-height: 320px; overflow-y: auto; }
+.menu-list__row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 10px; align-items: start;
+  padding: 10px 12px; background: var(--paper-100); border-radius: 8px; border: 1px solid var(--line);
+}
+@media (max-width: 640px) { .menu-list__row { grid-template-columns: 1fr; } }
+.menu-list__date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--steel-600); }
+.menu-list__meals { display: flex; flex-wrap: wrap; gap: 6px; }
+.menu-chip {
+  display: inline-block; font-size: 0.78rem; background: #fff; border: 1px solid var(--line);
+  border-radius: 6px; padding: 4px 8px;
+}
+.menu-chip em { color: var(--steel-600); font-style: normal; }

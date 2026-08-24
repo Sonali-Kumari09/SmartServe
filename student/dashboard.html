@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Dashboard — SmartServe</title>
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/student.css" />
+<link rel="icon" href="../assets/smartserve-mark.svg" type="image/svg+xml" />
+<style>
+  .meal-actions { margin-top: 10px; display: grid; gap: 8px; }
+  .attend-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .attend-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 0.88rem; }
+  .attend-toggle input { width: 18px; height: 18px; accent-color: var(--veg, #3F7D4F); }
+  .feedback-box { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+  .feedback-box label { display: block; font-size: 0.8rem; color: var(--steel-600); margin-bottom: 4px; }
+  .star-row { display: flex; gap: 4px; margin-bottom: 6px; }
+  .star-row button {
+    border: 1px solid var(--line); background: #fff; border-radius: 6px;
+    width: 34px; height: 34px; cursor: pointer; font-size: 1rem;
+  }
+  .star-row button.is-on { background: #fff6df; border-color: var(--turmeric, #E3A008); }
+  .feedback-box textarea {
+    width: 100%; min-height: 56px; resize: vertical; border: 1px solid var(--line);
+    border-radius: 8px; padding: 8px 10px; font: inherit; box-sizing: border-box;
+  }
+  .feedback-box .btn { margin-top: 6px; }
+  .feedback-status { font-size: 0.8rem; color: var(--veg); min-height: 1.2em; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand-lockup brand-lockup--light" href="../index.html"><img src="../assets/smartserve-mark.svg" alt="" /> <span>SmartServe</span></a>
+  <div class="topbar__actions">
+    <span class="topbar__meta">Signed in as <strong id="studentName">—</strong></span>
+    <button class="btn btn--ghost btn--sm" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+
+<main class="page">
+  <div id="holidayBanner" data-icon-path="../assets/icons/holiday.svg" hidden></div>
+
+  <div class="student-hero">
+    <div>
+      <h1>Your mess, at a glance</h1>
+      <p>Check meals, mark whether you will attend, and leave feedback for each meal.</p>
+    </div>
+    <div class="meal-clock">
+      <div id="mealClock"></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="grid" style="gap:14px;">
+      <div class="card">
+        <span class="card__eyebrow">Meal timing — live</span>
+        <div id="mealTimingList" class="grid" style="gap:10px;"></div>
+      </div>
+    </div>
+
+    <div class="grid" style="gap:14px;">
+      <div class="card">
+        <span class="card__eyebrow">Calendar</span>
+        <div id="calendar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+      <span class="card__eyebrow" id="menuDateLabel">Today</span>
+      <span id="menuHolidayNote"></span>
+    </div>
+    <div id="dayMenu" class="day-menu"></div>
+  </div>
+</main>
+
+<script src="../js/data/storage.js"></script>
+<script src="../js/utils/dateUtils.js"></script>
+<script src="../js/data/holidayData.js"></script>
+<script src="../js/data/seedData.js"></script>
+<script src="../js/core/mealTimer.js"></script>
+<script src="../js/core/calendar.js"></script>
+<script src="../js/core/holiday.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth/auth.js"></script>
+<script src="../js/utils/notify.js"></script>
+<script src="../js/pages/studentDashboard.js"></script>
+</body>
+</html>

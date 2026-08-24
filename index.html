@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartServe — Campus Meals, Zero Waste</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/landing.css" />
+<link rel="icon" href="assets/smartserve-mark.svg" type="image/svg+xml" />
+<style>
+  body.landing {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(63, 125, 79, 0.18), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 85% 80%, rgba(227, 160, 8, 0.14), transparent 50%),
+      var(--ink-900);
+    color: var(--paper-0);
+  }
+  .landing-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+  }
+  .landing-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--paper-0);
+    text-decoration: none;
+  }
+  .landing-brand img { width: 36px; height: 36px; }
+  .landing-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px 80px;
+    gap: 20px;
+  }
+  .landing-eyebrow {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--turmeric, #E3A008);
+  }
+  .landing-main h1 {
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    line-height: 1.05;
+    margin: 0;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+  }
+  .landing-tagline {
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    color: rgba(250, 247, 236, 0.72);
+    max-width: 36ch;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .landing-cta {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .landing-cta .btn {
+    min-width: 160px;
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+  .landing-cta .btn--ghost-light {
+    background: transparent;
+    border: 1px solid rgba(250, 247, 236, 0.35);
+    color: var(--paper-0);
+  }
+  .landing-cta .btn--ghost-light:hover {
+    background: rgba(250, 247, 236, 0.08);
+  }
+  .landing-footer {
+    padding: 16px 24px 28px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(250, 247, 236, 0.4);
+  }
+</style>
+</head>
+<body class="landing">
+  <header class="landing-header">
+    <a class="landing-brand" href="index.html">
+      <img src="assets/smartserve-mark.svg" alt="" />
+      <span>SmartServe</span>
+    </a>
+  </header>
+
+  <main class="landing-main">
+    <span class="landing-eyebrow">Campus mess · Intelligent service</span>
+    <h1>SmartServe</h1>
+    <p class="landing-tagline">
+      Forecast demand. Serve the right amount. Keep food safe. Share surplus with those who need it.
+    </p>
+    <div class="landing-cta">
+      <a class="btn btn--primary" href="login.html">Log in</a>
+      <a class="btn btn--ghost-light" href="login.html?mode=register">Create account</a>
+    </div>
+  </main>
+
+  <footer class="landing-footer">
+    SmartServe · Reduce waste · Feed more
+  </footer>
+</body>
+</html>

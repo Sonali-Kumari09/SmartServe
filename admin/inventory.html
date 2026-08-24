@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inventory — SmartServe</title>
+<link rel="stylesheet" href="../css/base.css" />
+<link rel="stylesheet" href="../css/admin.css" />
+<link rel="icon" href="../assets/smartserve-mark.svg" type="image/svg+xml" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand-lockup brand-lockup--light" href="../index.html"><img src="../assets/smartserve-mark.svg" alt="" /> <span>SmartServe · Admin</span></a>
+  <div class="topbar__actions">
+    <span class="topbar__meta">Signed in as <strong id="adminName">—</strong></span>
+    <button class="btn btn--ghost btn--sm" id="logoutBtn">Sign out</button>
+  </div>
+</header>
+<nav class="admin-nav">
+  <a href="dashboard.html">Overview</a>
+  <a href="inventory.html" class="is-active">Inventory</a>
+  <a href="surplus.html">Surplus &amp; Matching</a>
+  <a href="reports.html">Reports</a>
+</nav>
+
+<main class="page">
+  <h1 style="font-size:1.3rem;">Ingredient &amp; stored-food log</h1>
+  <p style="color:var(--steel-600);margin-bottom:20px;">Log storage time and temperature. The safe-until countdown updates automatically using food-safety time/temperature rules.</p>
+
+  <div class="card" style="margin-bottom:22px;">
+    <span class="card__eyebrow">Log a new item</span>
+    <form id="inventoryForm" class="inv-form-grid">
+      <div class="field">
+        <label for="name">Item name</label>
+        <input id="name" name="name" required placeholder="e.g. Cooked Rice" />
+      </div>
+      <div class="field">
+        <label for="qtyKg">Quantity (kg)</label>
+        <input id="qtyKg" name="qtyKg" type="number" min="0.1" step="0.1" required />
+      </div>
+      <div class="field">
+        <label for="tempC">Storage temp (°C)</label>
+        <input id="tempC" name="tempC" type="number" step="0.5" required />
+      </div>
+      <div class="field">
+        <label for="location">Location</label>
+        <input id="location" name="location" required placeholder="e.g. Cold room A" />
+      </div>
+      <button class="btn btn--primary" type="submit" style="grid-column: 1 / -1;">Log item</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <span class="card__eyebrow">Stored items</span>
+    <table class="data-table">
+      <thead>
+        <tr><th>Item</th><th>Qty</th><th>Location</th><th>Temp</th><th>Status</th><th>Safe for</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="inventoryBody"></tbody>
+    </table>
+  </div>
+</main>
+
+<script src="../js/data/storage.js"></script>
+<script src="../js/utils/dateUtils.js"></script>
+<script src="../js/data/holidayData.js"></script>
+<script src="../js/data/seedData.js"></script>
+<script src="../js/core/safety.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth/auth.js"></script>
+<script src="../js/utils/notify.js"></script>
+<script src="../js/pages/inventory.js"></script>
+</body>
+</html>
